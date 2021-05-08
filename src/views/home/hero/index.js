@@ -1,94 +1,155 @@
-import React, { Suspense, useRef, useState } from 'react';
-import * as THREE from 'three';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { useGLTF, Html, OrbitControls } from '@react-three/drei';
-import { useSpring, a } from 'react-spring/three';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { HeroWrapper, BigTitle, FlexBetween, FlexCenter, Label, LabelText } from './style';
+import { Container, Overflow } from '@styles';
 
-import useTransmissionMaterial from './use-material';
-import usePostprocessing from './use-postprocessing';
-import Text from './text';
-
-const Model = () => {
-  const { nodes } = useGLTF('/diamond.glb', true);
-  const [hovering, setHovering] = useState(false);
-
-  const [ref, pipeline] = useTransmissionMaterial({
-    frontMaterial: {
-      color: 'hotPink',
+const letterAnimation = {
+  initial: {
+    y: '100%',
+  },
+  animate: {
+    y: 0,
+    transition: {
+      ease: [0.6, 0.05, -0.01, 0.9],
+      duration: 1,
     },
-    backMaterial: {
-      color: 'hotPink',
-    },
-    transmissionMaterial: {
-      transmission: 0.4,
-      transmissionIntensity: 3,
-      distortionIntensity: 0.4,
-      fresnel: 3,
-      fresnelAmplifier: 2,
-    },
-  });
-  usePostprocessing(pipeline);
-
-  const animProps = useSpring({
-    scale: hovering ? [0.6, 0.6, 0.6] : [0.5, 0.5, 0.5],
-  });
-
-  useFrame(() => {
-    window.scroll.on('scroll', func => {
-      ref.current.position.y = func.scroll.y / 250 - 8;
-    });
-  });
-
-  return (
-    <a.mesh
-      onPointerOver={() => setHovering(true)}
-      onPointerOut={() => setHovering(false)}
-      rotation={[0.2, 0, THREE.Math.degToRad(-10)]}
-      scale={animProps.scale}
-      position={[0, -8, 0]}
-      ref={ref}
-      geometry={nodes.pCone1_lambert1_0.geometry}
-    />
-  );
-};
-
-const Lights = () => {
-  return (
-    <>
-      <ambientLight intensity={0.3} />
-      <directionalLight position={[10, 10, 5]} />
-      <directionalLight position={[-10, -10, -5]} />
-    </>
-  );
+  },
 };
 
 const Hero = () => {
-  let domnodeRef = useRef(null);
-
   return (
-    <>
-      <Canvas
-        orthographic
-        camera={{ position: [0, 0, 30], zoom: 75 }}
-        style={{ width: '100vw', height: '100vw', position: 'relative', zIndex: 6 }}>
-        <Suspense fallback={null}>
-          <Model />
-        </Suspense>
-        <OrbitControls
-          enableZoom={false}
-          autoRotate
-          maxPolarAngle={Math.PI / 2}
-          minPolarAngle={Math.PI / 3}
-        />
-        <Lights />
-        <Html fullscreen prepend zIndexRange={[5, 0]} portal={domnodeRef}>
-          <Text />
-        </Html>
-      </Canvas>
-      <div>
-        <div style={{ height: `70vw` }} ref={domnodeRef} />
-      </div>
-    </>
+    <HeroWrapper>
+      <Container>
+        <Overflow>
+          <BigTitle
+            initial="initial"
+            animate="animate"
+            transition={{ delayChildren: 0.4, staggerChildren: 0.1 }}>
+            <motion.span variants={letterAnimation}>K</motion.span>
+            <motion.span variants={letterAnimation}>y</motion.span>
+            <motion.span variants={letterAnimation}>r</motion.span>
+            <motion.span variants={letterAnimation}>y</motion.span>
+            <motion.span variants={letterAnimation}>l</motion.span>
+            <motion.span variants={letterAnimation}>o</motion.span>
+            <motion.span variants={letterAnimation}>—</motion.span>
+          </BigTitle>
+        </Overflow>
+        <Overflow>
+          <BigTitle
+            initial="initial"
+            animate="animate"
+            transition={{ delayChildren: 0.8, staggerChildren: 0.1 }}>
+            <motion.span variants={letterAnimation}>C</motion.span>
+            <motion.span variants={letterAnimation}>r</motion.span>
+            <motion.span variants={letterAnimation}>e</motion.span>
+            <motion.span variants={letterAnimation}>a</motion.span>
+            <motion.span variants={letterAnimation}>t</motion.span>
+            <motion.span variants={letterAnimation}>i</motion.span>
+            <motion.span variants={letterAnimation}>v</motion.span>
+            <motion.span variants={letterAnimation}>e</motion.span>
+          </BigTitle>
+        </Overflow>
+        <Overflow>
+          <BigTitle
+            initial="initial"
+            animate="animate"
+            transition={{ delayChildren: 1.2, staggerChildren: 0.1 }}>
+            <motion.span variants={letterAnimation}>D</motion.span>
+            <motion.span variants={letterAnimation}>e</motion.span>
+            <motion.span variants={letterAnimation}>s</motion.span>
+            <motion.span variants={letterAnimation}>i</motion.span>
+            <motion.span variants={letterAnimation}>g</motion.span>
+            <motion.span variants={letterAnimation}>n</motion.span>
+            <motion.span variants={letterAnimation}>e</motion.span>
+            <motion.span variants={letterAnimation}>r</motion.span>
+          </BigTitle>
+        </Overflow>
+        <FlexBetween>
+          <Overflow>
+            <BigTitle
+              initial="initial"
+              animate="animate"
+              transition={{ delayChildren: 1.6, staggerChildren: 0.1 }}>
+              <motion.span variants={letterAnimation}>a</motion.span>
+              <motion.span variants={letterAnimation}>n</motion.span>
+              <motion.span variants={letterAnimation}>d</motion.span>
+            </BigTitle>
+          </Overflow>
+          <FlexCenter>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.6, ease: [0.6, 0.05, -0.01, 0.9], duration: 1 }}>
+              <Label>Awards</Label>
+              <LabelText>awwwards.com (x2)</LabelText>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.6, ease: [0.6, 0.05, -0.01, 0.9], duration: 1 }}>
+              <Label>Portfolio</Label>
+              <LabelText>Version 5</LabelText>
+            </motion.div>
+          </FlexCenter>
+        </FlexBetween>
+        <Overflow>
+          <BigTitle
+            initial="initial"
+            animate="animate"
+            transition={{ delayChildren: 2, staggerChildren: 0.1 }}>
+            <motion.span variants={letterAnimation}>D</motion.span>
+            <motion.span variants={letterAnimation}>e</motion.span>
+            <motion.span variants={letterAnimation}>v</motion.span>
+            <motion.span variants={letterAnimation}>e</motion.span>
+            <motion.span variants={letterAnimation}>l</motion.span>
+            <motion.span variants={letterAnimation}>o</motion.span>
+            <motion.span variants={letterAnimation}>p</motion.span>
+            <motion.span variants={letterAnimation}>e</motion.span>
+            <motion.span variants={letterAnimation}>r</motion.span>
+          </BigTitle>
+        </Overflow>
+        <FlexBetween>
+          <Overflow>
+            <BigTitle
+              initial="initial"
+              animate="animate"
+              transition={{ delayChildren: 2.4, staggerChildren: 0.1 }}>
+              <motion.span variants={letterAnimation}>B</motion.span>
+              <motion.span variants={letterAnimation}>a</motion.span>
+              <motion.span variants={letterAnimation}>s</motion.span>
+              <motion.span variants={letterAnimation}>e</motion.span>
+              <motion.span variants={letterAnimation}>d</motion.span>
+            </BigTitle>
+          </Overflow>
+          <Overflow>
+            <BigTitle
+              initial="initial"
+              animate="animate"
+              transition={{ delayChildren: 2.8, staggerChildren: 0.1 }}>
+              <motion.span variants={letterAnimation}>I</motion.span>
+              <motion.span variants={letterAnimation}>n</motion.span>
+            </BigTitle>
+          </Overflow>
+        </FlexBetween>
+        <FlexBetween>
+          <div></div>
+          <Overflow>
+            <BigTitle
+              initial="initial"
+              animate="animate"
+              transition={{ delayChildren: 3.2, staggerChildren: 0.1 }}>
+              <motion.span variants={letterAnimation}>N</motion.span>
+              <motion.span variants={letterAnimation}>e</motion.span>
+              <motion.span variants={letterAnimation}>w&nbsp;</motion.span>
+              <motion.span variants={letterAnimation}>Y</motion.span>
+              <motion.span variants={letterAnimation}>o</motion.span>
+              <motion.span variants={letterAnimation}>r</motion.span>
+              <motion.span variants={letterAnimation}>k</motion.span>
+            </BigTitle>
+          </Overflow>
+        </FlexBetween>
+      </Container>
+    </HeroWrapper>
   );
 };
 
