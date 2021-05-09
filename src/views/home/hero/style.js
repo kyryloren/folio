@@ -32,5 +32,5 @@ export const ImageWrapper = styled.div`
   width: 30vw;
   height: 50vw;
   right: 3vw;
-  top: -10vw;
+  bottom: 22vw;
 `;
