@@ -50,23 +50,21 @@ const Layout = ({ children, location }) => {
             <GlobalStyle />
             <AnimatePresence>
               <Nav />
-              <motion.main
-                key={location.pathname}
-                variants={variants}
-                initial="initial"
-                animate="enter"
-                exit="exit">
-                <Curtains
-                  data-scroll
-                  data-scroll-sticky
-                  data-scroll-target="#___gatsby"
-                  watchScroll={typeof window !== 'undefined' && window.scroll.isMobile}
-                  pixelRatio={
-                    typeof window !== 'undefined' && Math.min(1.5, window.devicePixelRatio)
-                  }>
+              <Curtains
+                watchScroll={typeof window !== 'undefined' ? window.scroll.isMobile : false}
+                pixelRatio={
+                  typeof window !== 'undefined' && Math.min(1.5, window.devicePixelRatio)
+                }>
+                <motion.main
+                  key={location.pathname}
+                  variants={variants}
+                  initial="initial"
+                  animate="enter"
+                  exit="exit"
+                  id="page_container">
                   {children}
-                </Curtains>
-              </motion.main>
+                </motion.main>
+              </Curtains>
             </AnimatePresence>
           </ThemeProvider>
         </>

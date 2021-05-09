@@ -87,7 +87,7 @@ const Nav = () => {
   const { colorMode, setColorMode } = React.useContext(ThemeContext);
 
   return (
-    <StyledHeader data-scroll data-scroll-sticky data-scroll-target="#___gatsby">
+    <StyledHeader data-scroll data-scroll-sticky data-scroll-target="#page_container">
       <StyledContainer>
         <LogoWrapper to="/">Kyrylo Orlov</LogoWrapper>
         <TogglerWrapper>

@@ -70,10 +70,15 @@ const Hero = ({ data }) => {
     }
   });
 
+  useCurtainsEvent('onContextLost', curtains => {
+    curtains.restoreContext();
+  });
+
   useCurtains(curtains => {
     if (!window.scroll.isMobile) {
+      curtains.disableDrawing();
+
       window.scroll.on('scroll', func => {
-        curtains.disableDrawing();
         curtains.updateScrollValues(func.scroll.x, func.scroll.y);
 
         curtains.needRender();

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import LocomotiveScroll from 'locomotive-scroll';
 
 const scroll = {
-  container: '#___gatsby',
+  container: '#page_container',
   options: {
     smooth: true,
     smoothMobile: false,
