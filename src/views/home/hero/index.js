@@ -18,13 +18,13 @@ const Hero = ({ data }) => {
       lineWords.current,
       1.8,
       { yPercent: 100, rotationZ: 90, rotationY: 90 },
-      { yPercent: 0, rotationX: 0, rotationY: 0, rotationZ: 0, ease: 'power3.inOut', delay: 1 },
+      { yPercent: 0, rotationX: 0, rotationY: 0, rotationZ: 0, ease: 'power3.inOut' },
       0.2,
     ).staggerFromTo(
       opacityAnim.current,
       2,
       { opacity: 0 },
-      { opacity: 1, ease: 'power3.inOut', delay: 1 },
+      { opacity: 1, ease: 'power3.inOut' },
       0.2,
       '-=3',
     );
@@ -139,7 +139,7 @@ const Hero = ({ data }) => {
           </FlexBetween>
         </Container>
       </RowWrapper>
-      <div data-scroll data-scroll-speed={2} style={{ zIndex: 2 }}>
+      <div style={{ zIndex: 2 }}>
         <Overflow>
           <ImageWrapper ref={el => (opacityAnim.current[2] = el)}>
             <SinglePlane onPlaneReady={onPlaneReady} />
