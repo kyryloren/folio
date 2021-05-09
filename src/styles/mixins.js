@@ -18,7 +18,7 @@ const mixins = {
   largeTitle: css`
     margin: 0;
     line-height: 95%;
-    font-weight: 700;
+    font-weight: 400;
     text-transform: uppercase;
     font-family: var(--font-family-serif);
   `,

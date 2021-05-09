@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Head, SmoothScroll } from '@components';
+import { Curtains } from 'react-curtains';
+import { Head, SmoothScroll, ThemeProvider, Nav } from '@components';
 import { GlobalStyle } from '@styles';
 
 const variants = {
@@ -45,17 +46,29 @@ const Layout = ({ children, location }) => {
           <SmoothScroll callbacks={location} />
           {/* <Cursor /> */}
 
-          <GlobalStyle />
-          <AnimatePresence>
-            <motion.main
-              key={location.pathname}
-              variants={variants}
-              initial="initial"
-              animate="enter"
-              exit="exit">
-              {children}
-            </motion.main>
-          </AnimatePresence>
+          <ThemeProvider>
+            <GlobalStyle />
+            <AnimatePresence>
+              <Nav />
+              <motion.main
+                key={location.pathname}
+                variants={variants}
+                initial="initial"
+                animate="enter"
+                exit="exit">
+                <Curtains
+                  data-scroll
+                  data-scroll-sticky
+                  data-scroll-target="#___gatsby"
+                  watchScroll={typeof window !== 'undefined' && window.scroll.isMobile}
+                  pixelRatio={
+                    typeof window !== 'undefined' && Math.min(1.5, window.devicePixelRatio)
+                  }>
+                  {children}
+                </Curtains>
+              </motion.main>
+            </AnimatePresence>
+          </ThemeProvider>
         </>
       )}
     />

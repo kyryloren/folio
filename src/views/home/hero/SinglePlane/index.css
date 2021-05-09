@@ -1,0 +1,17 @@
+.MultiplePlanes-plane {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.MultiplePlanes-plane img {
+  display: none;
+}
+
+@media screen and (max-width: 980px) {
+  .MultiplePlanes-element {
+    flex-basis: 100%;
+  }
+}

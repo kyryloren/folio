@@ -92,6 +92,15 @@ const GlobalStyle = createGlobalStyle`
   ::selection {
     background: rgba(255,255,255,0.2);
   }
+  .curtains-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none;
+  }
   /* .cursor {
     width: 60px;
     height: 60px;

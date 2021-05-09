@@ -1,154 +1,165 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { HeroWrapper, BigTitle, FlexBetween, FlexCenter, Label, LabelText } from './style';
+import React, { useEffect, useState, useRef } from 'react';
+import { useCurtainsEvent, useCurtains } from 'react-curtains';
+import { gsap } from 'gsap';
+import { HeroWrapper, BigTitle, RowWrapper, FlexBetween, LabelText, ImageWrapper } from './style';
+import SinglePlane from './SinglePlane';
 import { Container, Overflow } from '@styles';
 
-const letterAnimation = {
-  initial: {
-    y: '100%',
-  },
-  animate: {
-    y: 0,
-    transition: {
-      ease: [0.6, 0.05, -0.01, 0.9],
-      duration: 1,
-    },
-  },
-};
+const Hero = ({ data }) => {
+  const planesDeformations = useRef(0);
+  const [planes, setPlanes] = useState([]);
+  let scrollEffect = 0;
+  let lineWords = useRef([]);
+  let opacityAnim = useRef([]);
+  let tl = gsap.timeline();
 
-const Hero = () => {
+  useEffect(() => {
+    tl.staggerFromTo(
+      lineWords.current,
+      1.8,
+      { yPercent: 100, rotationZ: 90, rotationY: 90 },
+      { yPercent: 0, rotationX: 0, rotationY: 0, rotationZ: 0, ease: 'power3.inOut', delay: 1 },
+      0.2,
+    ).staggerFromTo(
+      opacityAnim.current,
+      2,
+      { opacity: 0 },
+      { opacity: 1, ease: 'power3.inOut', delay: 1 },
+      0.2,
+      '-=3',
+    );
+  }, [tl]);
+
+  useCurtainsEvent(
+    'onRender',
+    curtains => {
+      // update our planes deformation
+      // increase/decrease the effect
+      planesDeformations.current = curtains.lerp(planesDeformations.current, 0, 0.075);
+
+      // update planes deformations
+      planes.forEach(plane => {
+        plane.uniforms.planeDeformation.value = planesDeformations.current;
+      });
+    },
+    [planes],
+  );
+
+  useCurtainsEvent('onRender', curtains => {
+    if (window.scroll.isMobile) {
+      scrollEffect = curtains.lerp(scrollEffect, 0, 0.05);
+    }
+  });
+
+  useCurtainsEvent('onScroll', curtains => {
+    // get scroll deltas to apply the effect on scroll
+    const delta = curtains.getScrollDeltas();
+
+    // invert value for the effect
+    delta.y = -delta.y;
+
+    // threshold
+    if (delta.y > 60) {
+      delta.y = 60;
+    } else if (delta.y < -60) {
+      delta.y = -60;
+    }
+
+    if (Math.abs(delta.y) > Math.abs(planesDeformations.current)) {
+      planesDeformations.current = curtains.lerp(planesDeformations.current, delta.y, 0.5);
+    }
+  });
+
+  useCurtains(curtains => {
+    if (!window.scroll.isMobile) {
+      window.scroll.on('scroll', func => {
+        curtains.disableDrawing();
+        curtains.updateScrollValues(func.scroll.x, func.scroll.y);
+
+        curtains.needRender();
+      });
+    }
+  });
+
+  const onPlaneReady = plane => {
+    setPlanes(planes => [...planes, plane]);
+  };
+
   return (
     <HeroWrapper>
-      <Container>
-        <Overflow>
-          <BigTitle
-            initial="initial"
-            animate="animate"
-            transition={{ delayChildren: 0.4, staggerChildren: 0.1 }}>
-            <motion.span variants={letterAnimation}>K</motion.span>
-            <motion.span variants={letterAnimation}>y</motion.span>
-            <motion.span variants={letterAnimation}>r</motion.span>
-            <motion.span variants={letterAnimation}>y</motion.span>
-            <motion.span variants={letterAnimation}>l</motion.span>
-            <motion.span variants={letterAnimation}>o</motion.span>
-            <motion.span variants={letterAnimation}>—</motion.span>
-          </BigTitle>
-        </Overflow>
-        <Overflow>
-          <BigTitle
-            initial="initial"
-            animate="animate"
-            transition={{ delayChildren: 0.8, staggerChildren: 0.1 }}>
-            <motion.span variants={letterAnimation}>C</motion.span>
-            <motion.span variants={letterAnimation}>r</motion.span>
-            <motion.span variants={letterAnimation}>e</motion.span>
-            <motion.span variants={letterAnimation}>a</motion.span>
-            <motion.span variants={letterAnimation}>t</motion.span>
-            <motion.span variants={letterAnimation}>i</motion.span>
-            <motion.span variants={letterAnimation}>v</motion.span>
-            <motion.span variants={letterAnimation}>e</motion.span>
-          </BigTitle>
-        </Overflow>
-        <Overflow>
-          <BigTitle
-            initial="initial"
-            animate="animate"
-            transition={{ delayChildren: 1.2, staggerChildren: 0.1 }}>
-            <motion.span variants={letterAnimation}>D</motion.span>
-            <motion.span variants={letterAnimation}>e</motion.span>
-            <motion.span variants={letterAnimation}>s</motion.span>
-            <motion.span variants={letterAnimation}>i</motion.span>
-            <motion.span variants={letterAnimation}>g</motion.span>
-            <motion.span variants={letterAnimation}>n</motion.span>
-            <motion.span variants={letterAnimation}>e</motion.span>
-            <motion.span variants={letterAnimation}>r</motion.span>
-          </BigTitle>
-        </Overflow>
+      <RowWrapper>
         <FlexBetween>
           <Overflow>
-            <BigTitle
-              initial="initial"
-              animate="animate"
-              transition={{ delayChildren: 1.6, staggerChildren: 0.1 }}>
-              <motion.span variants={letterAnimation}>a</motion.span>
-              <motion.span variants={letterAnimation}>n</motion.span>
-              <motion.span variants={letterAnimation}>d</motion.span>
+            <BigTitle data-scroll data-scroll-speed={1} data-scroll-direction="horizontal">
+              <span ref={el => (lineWords.current[0] = el)}>Crtv.</span>
             </BigTitle>
           </Overflow>
-          <FlexCenter>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.6, ease: [0.6, 0.05, -0.01, 0.9], duration: 1 }}>
-              <Label>Awards</Label>
-              <LabelText>awwwards.com (x2)</LabelText>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.6, ease: [0.6, 0.05, -0.01, 0.9], duration: 1 }}>
-              <Label>Portfolio</Label>
-              <LabelText>Version 5</LabelText>
-            </motion.div>
-          </FlexCenter>
+          <Overflow>
+            <Container>
+              <LabelText ref={el => (opacityAnim.current[0] = el)}>
+                Creating interactive
+                <br />
+                web projects since 2016
+              </LabelText>
+            </Container>
+          </Overflow>
         </FlexBetween>
+      </RowWrapper>
+      <RowWrapper>
+        <div style={{ marginLeft: '-8vw' }}>
+          <Overflow>
+            <BigTitle data-scroll data-scroll-speed={-1} data-scroll-direction="horizontal">
+              <span ref={el => (lineWords.current[1] = el)}>Designer</span>
+            </BigTitle>
+          </Overflow>
+        </div>
+      </RowWrapper>
+      <RowWrapper>
         <Overflow>
-          <BigTitle
-            initial="initial"
-            animate="animate"
-            transition={{ delayChildren: 2, staggerChildren: 0.1 }}>
-            <motion.span variants={letterAnimation}>D</motion.span>
-            <motion.span variants={letterAnimation}>e</motion.span>
-            <motion.span variants={letterAnimation}>v</motion.span>
-            <motion.span variants={letterAnimation}>e</motion.span>
-            <motion.span variants={letterAnimation}>l</motion.span>
-            <motion.span variants={letterAnimation}>o</motion.span>
-            <motion.span variants={letterAnimation}>p</motion.span>
-            <motion.span variants={letterAnimation}>e</motion.span>
-            <motion.span variants={letterAnimation}>r</motion.span>
+          <BigTitle data-scroll data-scroll-speed={2} data-scroll-direction="horizontal">
+            <span ref={el => (lineWords.current[2] = el)}>And Deve</span>
           </BigTitle>
         </Overflow>
-        <FlexBetween>
-          <Overflow>
-            <BigTitle
-              initial="initial"
-              animate="animate"
-              transition={{ delayChildren: 2.4, staggerChildren: 0.1 }}>
-              <motion.span variants={letterAnimation}>B</motion.span>
-              <motion.span variants={letterAnimation}>a</motion.span>
-              <motion.span variants={letterAnimation}>s</motion.span>
-              <motion.span variants={letterAnimation}>e</motion.span>
-              <motion.span variants={letterAnimation}>d</motion.span>
-            </BigTitle>
-          </Overflow>
-          <Overflow>
-            <BigTitle
-              initial="initial"
-              animate="animate"
-              transition={{ delayChildren: 2.8, staggerChildren: 0.1 }}>
-              <motion.span variants={letterAnimation}>I</motion.span>
-              <motion.span variants={letterAnimation}>n</motion.span>
-            </BigTitle>
-          </Overflow>
-        </FlexBetween>
-        <FlexBetween>
-          <div></div>
-          <Overflow>
-            <BigTitle
-              initial="initial"
-              animate="animate"
-              transition={{ delayChildren: 3.2, staggerChildren: 0.1 }}>
-              <motion.span variants={letterAnimation}>N</motion.span>
-              <motion.span variants={letterAnimation}>e</motion.span>
-              <motion.span variants={letterAnimation}>w&nbsp;</motion.span>
-              <motion.span variants={letterAnimation}>Y</motion.span>
-              <motion.span variants={letterAnimation}>o</motion.span>
-              <motion.span variants={letterAnimation}>r</motion.span>
-              <motion.span variants={letterAnimation}>k</motion.span>
-            </BigTitle>
-          </Overflow>
-        </FlexBetween>
-      </Container>
+      </RowWrapper>
+      <RowWrapper>
+        <Container>
+          <FlexBetween>
+            <Overflow>
+              <LabelText ref={el => (opacityAnim.current[1] = el)}>
+                Working world
+                <br />
+                wide babyyyy
+              </LabelText>
+            </Overflow>
+            <Overflow>
+              <BigTitle data-scroll data-scroll-speed={-1} data-scroll-direction="horizontal">
+                <span ref={el => (lineWords.current[3] = el)}>Loper</span>
+              </BigTitle>
+            </Overflow>
+          </FlexBetween>
+        </Container>
+      </RowWrapper>
+      <div data-scroll data-scroll-speed={2} style={{ zIndex: 2 }}>
+        <Overflow>
+          <ImageWrapper ref={el => (opacityAnim.current[2] = el)}>
+            <SinglePlane onPlaneReady={onPlaneReady} />
+          </ImageWrapper>
+        </Overflow>
+      </div>
+      <RowWrapper>
+        <Overflow>
+          <BigTitle data-scroll data-scroll-speed={1} data-scroll-direction="horizontal">
+            <span ref={el => (lineWords.current[4] = el)}>Based</span>
+          </BigTitle>
+        </Overflow>
+      </RowWrapper>
+      <RowWrapper>
+        <Overflow>
+          <BigTitle data-scroll data-scroll-speed={-1} data-scroll-direction="horizontal">
+            <span ref={el => (lineWords.current[5] = el)}>In NYC</span>
+          </BigTitle>
+        </Overflow>
+      </RowWrapper>
     </HeroWrapper>
   );
 };

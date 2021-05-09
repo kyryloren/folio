@@ -1,36 +1,36 @@
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 import { mixins } from '@styles';
 
 export const HeroWrapper = styled.section`
   width: 100%;
-  padding: 10vw 0;
+  padding: 15vw 0;
+  overflow: hidden;
 
   span {
     display: inline-block;
   }
 `;
-export const BigTitle = styled(motion.h1)`
-  font-size: 19.7vw;
+export const RowWrapper = styled.div`
+  transform: rotate(-10deg);
+  margin-top: -2vw;
+`;
+export const BigTitle = styled.h1`
+  font-size: 28vw;
+  white-space: nowrap;
 
   ${mixins.largeTitle};
 `;
 export const FlexBetween = styled.div`
   ${mixins.flexBetween};
 `;
-export const FlexCenter = styled.div`
-  ${mixins.flexCenter};
-
-  div :first-child {
-    margin-right: 4vw;
-  }
-`;
-export const Label = styled.p`
-  font-size: 2vw;
-
-  ${mixins.largeTitle};
-`;
 export const LabelText = styled.p`
   font-size: 1.5vw;
   margin-top: 0;
+`;
+export const ImageWrapper = styled.div`
+  position: absolute;
+  width: 30vw;
+  height: 50vw;
+  right: 3vw;
+  top: -10vw;
 `;
