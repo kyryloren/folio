@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'gatsby';
 import { mixins } from '@styles';
 
 export const ProjectsSection = styled.section`
@@ -47,9 +48,11 @@ export const ImageWrapper = styled.div`
     object-fit: cover;
   }
 `;
-export const ProjectWrapper = styled.div`
+export const ProjectWrapper = styled(Link)`
   ${mixins.flexBetween};
   padding: 10vw 0;
+  color: inherit;
+  text-decoration: none;
 
   :nth-child(2n) {
     flex-direction: row-reverse;

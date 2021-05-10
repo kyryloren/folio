@@ -123,7 +123,7 @@ const Projects = ({ data }) => {
     <ProjectsSection>
       <Container>
         {data.map((node, i) => (
-          <ProjectWrapper key={i}>
+          <ProjectWrapper key={i} to={`/${node.slug}`}>
             <div>
               <ImageWrapper>
                 <SinglePlane
