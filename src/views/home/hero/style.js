@@ -5,6 +5,7 @@ export const HeroWrapper = styled.section`
   width: 100%;
   padding: 15vw 0;
   overflow: hidden;
+  position: relative;
 
   span {
     display: inline-block;

@@ -1,12 +1,15 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import { Hero } from '@views/home';
+import { Hero, Projects } from '@views/home';
 
 const HomePage = ({ data }) => {
+  const doc = data.allDatoCmsProject.nodes;
+
   return (
     <>
       <Hero data={data} />
+      <Projects data={doc} />
     </>
   );
 };
@@ -15,9 +18,15 @@ export default HomePage;
 
 export const query = graphql`
   {
-    hero: file(relativePath: { eq: "hero.png" }) {
-      childImageSharp {
-        gatsbyImageData(layout: FULL_WIDTH)
+    allDatoCmsProject {
+      nodes {
+        slug
+        title
+        description
+        hero {
+          alt
+          url(imgixParams: { q: 25 })
+        }
       }
     }
     nyc: file(relativePath: { eq: "nyc.jpg" }) {

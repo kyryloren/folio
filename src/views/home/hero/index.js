@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useCurtainsEvent, useCurtains } from 'react-curtains';
+import { useCurtainsEvent, useCurtains, ShaderPass, FXAAPass } from 'react-curtains';
+import { firstPassFs, secondPassFs } from '@components/SinglePlane/shaders/post';
+import NYCImage from '@images/nyc.jpg';
 import { gsap } from 'gsap';
+
 import { HeroWrapper, BigTitle, RowWrapper, FlexBetween, LabelText, ImageWrapper } from './style';
-import SinglePlane from './SinglePlane';
+import SinglePlane from '@components/SinglePlane';
 import { Container, Overflow } from '@styles';
 
-const Hero = ({ data }) => {
+const Hero = () => {
   const planesDeformations = useRef(0);
   const [planes, setPlanes] = useState([]);
   let scrollEffect = 0;
@@ -33,6 +36,10 @@ const Hero = ({ data }) => {
   useCurtainsEvent(
     'onRender',
     curtains => {
+      if (window.scroll.isMobile) {
+        scrollEffect = curtains.lerp(scrollEffect, 0, 0.05);
+      }
+
       // update our planes deformation
       // increase/decrease the effect
       planesDeformations.current = curtains.lerp(planesDeformations.current, 0, 0.075);
@@ -44,12 +51,6 @@ const Hero = ({ data }) => {
     },
     [planes],
   );
-
-  useCurtainsEvent('onRender', curtains => {
-    if (window.scroll.isMobile) {
-      scrollEffect = curtains.lerp(scrollEffect, 0, 0.05);
-    }
-  });
 
   useCurtainsEvent('onScroll', curtains => {
     // get scroll deltas to apply the effect on scroll
@@ -88,6 +89,45 @@ const Hero = ({ data }) => {
 
   const onPlaneReady = plane => {
     setPlanes(planes => [...planes, plane]);
+  };
+
+  // post processing
+  const firstPassUniforms = {
+    timer: {
+      name: 'uTimer',
+      type: '1f',
+      value: 0,
+    },
+    displacement: {
+      name: 'uDisplacement',
+      type: '1f',
+      value: 0,
+    },
+  };
+
+  const secondPassUniforms = {
+    scrollEffect: {
+      name: 'uScrollEffect',
+      type: '1f',
+      value: 0,
+    },
+  };
+
+  const onFirstPassReady = shaderPass => {
+    shaderPass.loader.loadImage('https://www.curtainsjs.com/examples/medias/displacement.jpg', {
+      sampler: 'displacementTexture',
+    });
+  };
+
+  const onFirstPassRender = shaderPass => {
+    // update the uniforms
+    shaderPass.uniforms.timer.value++;
+    shaderPass.uniforms.displacement.value = planesDeformations.current / 60;
+  };
+
+  const onSecondPassRender = shaderPass => {
+    // update the uniforms
+    shaderPass.uniforms.scrollEffect.value = Math.abs(planesDeformations.current);
   };
 
   return (
@@ -147,7 +187,22 @@ const Hero = ({ data }) => {
       <div style={{ zIndex: 2 }}>
         <Overflow>
           <ImageWrapper ref={el => (opacityAnim.current[2] = el)}>
-            <SinglePlane onPlaneReady={onPlaneReady} />
+            <SinglePlane onPlaneReady={onPlaneReady} image={NYCImage} alt="NYC" />
+
+            <ShaderPass
+              fragmentShader={firstPassFs}
+              uniforms={firstPassUniforms}
+              onReady={onFirstPassReady}
+              onRender={onFirstPassRender}
+            />
+
+            <ShaderPass
+              fragmentShader={secondPassFs}
+              uniforms={secondPassUniforms}
+              onRender={onSecondPassRender}
+            />
+
+            <FXAAPass />
           </ImageWrapper>
         </Overflow>
       </div>

@@ -1,11 +1,10 @@
 import React from 'react';
 import { Plane } from 'react-curtains';
-import NYCImage from '@images/nyc.jpg';
-import { vertexShader, fragmentShader } from './shaders/image';
 
+import { vertexShader, fragmentShader } from './shaders/image';
 import './index.css';
 
-function SinglePlane({ onPlaneReady = () => {} }) {
+function SinglePlane({ image, alt, onPlaneReady = () => {} }) {
   const uniforms = {
     planeDeformation: {
       name: 'uPlaneDeformation',
@@ -24,7 +23,7 @@ function SinglePlane({ onPlaneReady = () => {} }) {
       heightSegments={10}
       uniforms={uniforms}
       onReady={onPlaneReady}>
-      <img src={NYCImage} data-sampler="planeTexture" alt="NYC" />
+      <img src={image} data-sampler="planeTexture" alt={alt} />
     </Plane>
   );
 }
