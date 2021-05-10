@@ -18,14 +18,14 @@ export default HomePage;
 
 export const query = graphql`
   {
-    allDatoCmsProject {
+    allDatoCmsProject(sort: { fields: meta___firstPublishedAt, order: DESC }) {
       nodes {
         slug
         title
         description
         hero {
           alt
-          url(imgixParams: { q: 25 })
+          url
         }
       }
     }
