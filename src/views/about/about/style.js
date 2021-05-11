@@ -3,6 +3,7 @@ import { mixins, media } from '@styles';
 
 export const AboutSection = styled.section`
   position: relative;
+  padding-bottom: 10vw;
 `;
 export const Wrapper = styled.div`
   display: flex;

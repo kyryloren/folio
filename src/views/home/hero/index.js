@@ -7,7 +7,7 @@ import NYCImage from '@images/nyc.jpg';
 import { gsap } from 'gsap';
 
 import { HeroWrapper, BigTitle, RowWrapper, FlexBetween, LabelText, ImageWrapper } from './style';
-import { Container, Overflow } from '@styles';
+import { Overflow } from '@styles';
 
 const Hero = ({ data }) => {
   const planesDeformations = useRef(0);

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Curtains } from 'react-curtains';
-import { Head, SmoothScroll, ThemeProvider, Nav } from '@components';
+import { Head, SmoothScroll, ThemeProvider, Nav, Contact } from '@components';
 import { GlobalStyle } from '@styles';
 
 const variants = {
@@ -60,7 +60,10 @@ const Layout = ({ children, location }) => {
                   pixelRatio={
                     typeof window !== 'undefined' && Math.min(1.5, window.devicePixelRatio)
                   }>
-                  <div id="page_container">{children}</div>
+                  <div id="page_container">
+                    {children}
+                    <Contact />
+                  </div>
                 </Curtains>
               </motion.main>
             </AnimatePresence>

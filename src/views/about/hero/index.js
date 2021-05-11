@@ -51,7 +51,7 @@ const Hero = ({ data }) => {
       0.2,
       '-=3',
     );
-  }, [letterRef]);
+  }, [letterRef, tl]);
 
   useCurtainsEvent(
     'onRender',
