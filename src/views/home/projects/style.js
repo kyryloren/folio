@@ -46,9 +46,12 @@ export const ParaText = styled.p`
 export const ImageWrapper = styled.div`
   position: relative;
   width: 40vw;
-  height: 100vw;
+  height: 50vw;
   left: 0;
-  ${media.phablet`width: 89vw;`};
+  ${media.phablet`
+    width: 89vw;
+    height: 100vw;
+  `};
 
   img,
   div {
