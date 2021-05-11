@@ -50,20 +50,19 @@ const Layout = ({ children, location }) => {
             <GlobalStyle />
             <AnimatePresence>
               <Nav />
-              <Curtains
-                pixelRatio={
-                  typeof window !== 'undefined' && Math.min(1.5, window.devicePixelRatio)
-                }>
-                <motion.main
-                  key={location.pathname}
-                  variants={variants}
-                  initial="initial"
-                  animate="enter"
-                  exit="exit"
-                  id="page_container">
-                  {children}
-                </motion.main>
-              </Curtains>
+              <motion.main
+                key={location.pathname}
+                variants={variants}
+                initial="initial"
+                animate="enter"
+                exit="exit">
+                <Curtains
+                  pixelRatio={
+                    typeof window !== 'undefined' && Math.min(1.5, window.devicePixelRatio)
+                  }>
+                  <div id="page_container">{children}</div>
+                </Curtains>
+              </motion.main>
             </AnimatePresence>
           </ThemeProvider>
         </>
