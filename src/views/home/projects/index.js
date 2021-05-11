@@ -13,10 +13,9 @@ import {
   Title,
   TitleWrapper,
   ParaText,
-  FlexEnd,
   ParaWrapper,
 } from './style';
-import { Container, Link } from '@styles';
+import { Link } from '@styles';
 
 const Projects = ({ data }) => {
   const planesDeformations = useRef(0);
@@ -133,55 +132,51 @@ const Projects = ({ data }) => {
 
   return (
     <ProjectsSection>
-      <Container>
-        {data.map((node, i) => (
-          <ProjectWrapper key={i} to={`/${node.slug}`}>
-            <div style={{ zIndex: 1 }}>
-              <ImageWrapper>
-                {mobileView ? (
-                  <GatsbyImage image={node.hero.gatsbyImageData} alt={node.hero.alt} />
-                ) : (
-                  <>
-                    <SinglePlane
-                      onPlaneReady={onPlaneReady}
-                      image={node.hero.url}
-                      alt={node.hero.alt}
-                    />
+      {data.map((node, i) => (
+        <ProjectWrapper key={i} to={`/${node.slug}`}>
+          <div style={{ zIndex: 1 }}>
+            <ImageWrapper>
+              {mobileView ? (
+                <GatsbyImage image={node.hero.gatsbyImageData} alt={node.hero.alt} />
+              ) : (
+                <>
+                  <SinglePlane
+                    onPlaneReady={onPlaneReady}
+                    image={node.hero.url}
+                    alt={node.hero.alt}
+                  />
 
-                    <ShaderPass
-                      fragmentShader={firstPassFs}
-                      uniforms={firstPassUniforms}
-                      onReady={onFirstPassReady}
-                      onRender={onFirstPassRender}
-                    />
+                  <ShaderPass
+                    fragmentShader={firstPassFs}
+                    uniforms={firstPassUniforms}
+                    onReady={onFirstPassReady}
+                    onRender={onFirstPassRender}
+                  />
 
-                    <ShaderPass
-                      fragmentShader={secondPassFs}
-                      uniforms={secondPassUniforms}
-                      onRender={onSecondPassRender}
-                    />
+                  <ShaderPass
+                    fragmentShader={secondPassFs}
+                    uniforms={secondPassUniforms}
+                    onRender={onSecondPassRender}
+                  />
 
-                    <FXAAPass />
-                  </>
-                )}
-              </ImageWrapper>
-            </div>
-            <ContentWrapper>
-              <ContentContainer>
-                <TitleWrapper>
-                  <Title>{node.title}</Title>
-                </TitleWrapper>
-                <FlexEnd>
-                  <ParaWrapper>
-                    <ParaText>{node.description}</ParaText>
-                    <Link to={`/${node.slug}`}>Preview project</Link>
-                  </ParaWrapper>
-                </FlexEnd>
-              </ContentContainer>
-            </ContentWrapper>
-          </ProjectWrapper>
-        ))}
-      </Container>
+                  <FXAAPass />
+                </>
+              )}
+            </ImageWrapper>
+          </div>
+          <ContentWrapper>
+            <ContentContainer>
+              <TitleWrapper>
+                <Title>{node.title}</Title>
+              </TitleWrapper>
+              <ParaWrapper>
+                <ParaText>{node.description}</ParaText>
+                <Link to={`/${node.slug}`}>Preview project</Link>
+              </ParaWrapper>
+            </ContentContainer>
+          </ContentWrapper>
+        </ProjectWrapper>
+      ))}
     </ProjectsSection>
   );
 };

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Curtains } from 'react-curtains';
-import { Head, SmoothScroll, ThemeProvider, Nav, Contact } from '@components';
+import { Head, ThemeProvider, Nav, Contact } from '@components';
 import { GlobalStyle } from '@styles';
 
 const variants = {

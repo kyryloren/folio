@@ -8,7 +8,7 @@ export const ProjectsSection = styled.section`
   padding: 10vw 0;
 `;
 export const ContentWrapper = styled.div`
-  margin-left: -4vw;
+  margin-left: 4vw;
 
   ${media.phablet`
     margin-left: 0;
@@ -16,20 +16,16 @@ export const ContentWrapper = styled.div`
   `};
 `;
 export const ContentContainer = styled.div`
-  max-width: 75%;
-
   ${media.phablet`max-width: 100%;`};
 `;
 export const ParaWrapper = styled.div`
   ${mixins.smallText};
   max-width: 80%;
+
+  ${media.phablet`margin-left: 20vw;`};
 `;
 export const TitleWrapper = styled.div`
   display: flex;
-`;
-export const FlexEnd = styled.div`
-  display: flex;
-  justify-content: flex-end;
 `;
 export const Title = styled.h1`
   font-size: 9vw;
@@ -49,11 +45,12 @@ export const ImageWrapper = styled.div`
   height: 50vw;
   left: 0;
   ${media.phablet`
-    width: 89vw;
+    width: 90vw;
     height: 100vw;
   `};
 
-  img {
+  img,
+  div {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -61,37 +58,22 @@ export const ImageWrapper = styled.div`
 `;
 export const ProjectWrapper = styled(Link)`
   ${mixins.flexBetween};
-  padding: 10vw 0;
+  padding: 10vw 10vw;
   color: inherit;
   text-decoration: none;
-  ${media.phablet`flex-direction: column;`};
+  ${media.phablet`
+    flex-direction: column;
+    padding: 10vw 5vw;
+  `};
 
   :nth-child(2n) {
     flex-direction: row-reverse;
     ${media.phablet`flex-direction: column;`};
 
     ${ContentWrapper} {
-      display: flex;
-      justify-content: flex-end;
-      margin-right: -4vw;
+      margin-left: 0;
 
       ${media.phablet`margin-right: 0;`};
-    }
-
-    ${TitleWrapper} {
-      justify-content: flex-end;
-
-      ${media.phablet`justify-content: unset;`};
-    }
-
-    ${ContentContainer} {
-      margin-left: auto;
-    }
-
-    ${FlexEnd} {
-      justify-content: flex-start;
-
-      ${media.phablet`justify-content: flex-end;`};
     }
   }
 `;
