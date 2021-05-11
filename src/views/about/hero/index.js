@@ -30,7 +30,7 @@ const Hero = ({ data }) => {
         setMobileImage(false);
       }
     }
-  }, [mobileImage]);
+  }, [setMobileImage]);
 
   useCurtainsEvent(
     'onRender',
@@ -140,10 +140,10 @@ const Hero = ({ data }) => {
         <Row>
           <ImageWrapper>
             {mobileImage ? (
-              <GatsbyImage image={data.hero.childImageSharp.gatsbyImageData} />
+              <GatsbyImage image={data.hero.childImageSharp.gatsbyImageData} alt="Kyrylo Orlov" />
             ) : (
               <>
-                <SinglePlane onPlaneReady={onPlaneReady} image={HeroImage} alt="NYC" />
+                <SinglePlane onPlaneReady={onPlaneReady} image={HeroImage} alt="Kyrylo Orlov" />
 
                 <ShaderPass
                   fragmentShader={firstPassFs}

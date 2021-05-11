@@ -24,6 +24,7 @@ export const query = graphql`
         title
         description
         hero {
+          gatsbyImageData(layout: FULL_WIDTH)
           alt
           url
         }

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mixins } from '@styles';
+import { mixins, media } from '@styles';
 
 export const HeroWrapper = styled.section`
   width: 100%;
@@ -19,6 +19,10 @@ export const BigTitle = styled.h1`
   font-size: 28vw;
   white-space: nowrap;
 
+  ${media.phablet`
+    ${props => props.crtv && `margin-left: -8vw;`};
+    /* ${props => props.loper && `margin-left: -8vw;`}; */
+  `};
   ${mixins.largeTitle};
 `;
 export const FlexBetween = styled.div`
@@ -27,6 +31,11 @@ export const FlexBetween = styled.div`
 export const LabelText = styled.p`
   ${mixins.smallText};
   margin-top: 0;
+
+  ${media.phablet`
+    max-width: 80%;
+    ${props => props.crtv && `margin-left: auto;`};
+  `};
 `;
 export const ImageWrapper = styled.div`
   position: absolute;

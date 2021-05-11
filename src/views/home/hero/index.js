@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import { useCurtainsEvent, useCurtains, ShaderPass, FXAAPass } from 'react-curtains';
 import { firstPassFs, secondPassFs } from '@components/SinglePlane/shaders/post';
 import SinglePlane from '@components/SinglePlane';
@@ -8,8 +9,9 @@ import { gsap } from 'gsap';
 import { HeroWrapper, BigTitle, RowWrapper, FlexBetween, LabelText, ImageWrapper } from './style';
 import { Container, Overflow } from '@styles';
 
-const Hero = () => {
+const Hero = ({ data }) => {
   const planesDeformations = useRef(0);
+  const [mobileView, setMobileView] = useState(true);
   const [planes, setPlanes] = useState([]);
   let scrollEffect = 0;
   let lineWords = useRef([]);
@@ -32,6 +34,16 @@ const Hero = () => {
       '-=3',
     );
   }, [tl]);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.scroll.scroll) {
+      if (window.scroll.scroll.isMobile) {
+        setMobileView(true);
+      } else {
+        setMobileView(false);
+      }
+    }
+  }, [setMobileView]);
 
   useCurtainsEvent(
     'onRender',
@@ -135,18 +147,16 @@ const Hero = () => {
       <RowWrapper>
         <FlexBetween>
           <Overflow>
-            <BigTitle data-scroll data-scroll-speed={1} data-scroll-direction="horizontal">
+            <BigTitle data-scroll data-scroll-speed={1} data-scroll-direction="horizontal" crtv>
               <span ref={el => (lineWords.current[0] = el)}>Crtv.</span>
             </BigTitle>
           </Overflow>
           <Overflow>
-            <Container>
-              <LabelText ref={el => (opacityAnim.current[0] = el)}>
-                Creating interactive
-                <br />
-                web projects since 2016
-              </LabelText>
-            </Container>
+            <LabelText ref={el => (opacityAnim.current[0] = el)} crtv>
+              Creating interactive
+              <br />
+              web projects since 2016
+            </LabelText>
           </Overflow>
         </FlexBetween>
       </RowWrapper>
@@ -177,7 +187,7 @@ const Hero = () => {
               </LabelText>
             </Overflow>
             <Overflow>
-              <BigTitle data-scroll data-scroll-speed={-2} data-scroll-direction="horizontal">
+              <BigTitle data-scroll data-scroll-speed={-2} data-scroll-direction="horizontal" loper>
                 <span ref={el => (lineWords.current[3] = el)}>Loper</span>
               </BigTitle>
             </Overflow>
@@ -187,22 +197,28 @@ const Hero = () => {
       <div style={{ zIndex: 2 }}>
         <Overflow>
           <ImageWrapper ref={el => (opacityAnim.current[2] = el)}>
-            <SinglePlane onPlaneReady={onPlaneReady} image={NYCImage} alt="NYC" />
+            {mobileView ? (
+              <GatsbyImage image={data.nyc.childImageSharp.gatsbyImageData} alt="NYC" />
+            ) : (
+              <>
+                <SinglePlane onPlaneReady={onPlaneReady} image={NYCImage} alt="NYC" />
 
-            <ShaderPass
-              fragmentShader={firstPassFs}
-              uniforms={firstPassUniforms}
-              onReady={onFirstPassReady}
-              onRender={onFirstPassRender}
-            />
+                <ShaderPass
+                  fragmentShader={firstPassFs}
+                  uniforms={firstPassUniforms}
+                  onReady={onFirstPassReady}
+                  onRender={onFirstPassRender}
+                />
 
-            <ShaderPass
-              fragmentShader={secondPassFs}
-              uniforms={secondPassUniforms}
-              onRender={onSecondPassRender}
-            />
+                <ShaderPass
+                  fragmentShader={secondPassFs}
+                  uniforms={secondPassUniforms}
+                  onRender={onSecondPassRender}
+                />
 
-            <FXAAPass />
+                <FXAAPass />
+              </>
+            )}
           </ImageWrapper>
         </Overflow>
       </div>
