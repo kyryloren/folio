@@ -8,12 +8,12 @@ export const AboutSection = styled.section`
 export const Wrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-top: -15vw;
+  margin-top: 5vw;
 
   ${media.thone`margin-top: 0;`};
 `;
 export const TextWrapper = styled.div`
-  max-width: 55%;
+  max-width: 70%;
 
   ${media.thone`max-width: 100%;`};
 `;

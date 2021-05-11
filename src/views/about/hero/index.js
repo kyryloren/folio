@@ -167,6 +167,21 @@ const Hero = ({ data }) => {
           </BigTitle>
         </Overflow>
       </RowWrapper>
+      <RowWrapper bottom>
+        <Overflow>
+          <BigTitle data-scroll data-scroll-speed={-3} data-scroll-direction="horizontal">
+            <span ref={el => (letterRef.current[13] = el)}>A</span>
+            <span ref={el => (letterRef.current[12] = el)}>b</span>
+            <span ref={el => (letterRef.current[11] = el)}>o</span>
+            <span ref={el => (letterRef.current[10] = el)}>u</span>
+            <span ref={el => (letterRef.current[9] = el)} style={{ marginRight: '8vw' }}>
+              t
+            </span>
+            <span ref={el => (letterRef.current[8] = el)}>M</span>
+            <span ref={el => (letterRef.current[7] = el)}>e</span>
+          </BigTitle>
+        </Overflow>
+      </RowWrapper>
       <Container>
         <Row>
           <ImageWrapper ref={el => (opacityAnim.current[0] = el)}>

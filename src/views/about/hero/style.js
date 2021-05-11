@@ -15,7 +15,12 @@ export const RowWrapper = styled.div`
   transform: rotate(10deg);
   margin: 0;
 
-  ${media.thone`transform: rotate(0deg);`};
+  ${props => props.bottom && `margin-left: -10vw;`};
+
+  ${media.thone`
+    transform: rotate(0deg);
+    ${props => props.bottom && `display: none;`};
+  `};
 `;
 export const BigTitle = styled.h1`
   font-size: 28vw;
@@ -29,11 +34,12 @@ export const BigTitle = styled.h1`
 `;
 export const Row = styled.div`
   display: flex;
-  align-items: center;
-  margin-top: -10vw;
+  align-items: flex-end;
+  margin-top: -35vw;
 
   ${media.thone`
     flex-direction: column;
+    align-items: center;
     margin-top: 5vw;
   `};
 `;
