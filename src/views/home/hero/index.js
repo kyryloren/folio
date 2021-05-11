@@ -1,11 +1,11 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useCurtainsEvent, useCurtains, ShaderPass, FXAAPass } from 'react-curtains';
 import { firstPassFs, secondPassFs } from '@components/SinglePlane/shaders/post';
+import SinglePlane from '@components/SinglePlane';
 import NYCImage from '@images/nyc.jpg';
 import { gsap } from 'gsap';
 
 import { HeroWrapper, BigTitle, RowWrapper, FlexBetween, LabelText, ImageWrapper } from './style';
-import SinglePlane from '@components/SinglePlane';
 import { Container, Overflow } from '@styles';
 
 const Hero = () => {
@@ -36,7 +36,7 @@ const Hero = () => {
   useCurtainsEvent(
     'onRender',
     curtains => {
-      if (window.scroll.isMobile) {
+      if (window.scroll.scroll.isMobile) {
         scrollEffect = curtains.lerp(scrollEffect, 0, 0.05);
       }
 
@@ -76,7 +76,7 @@ const Hero = () => {
   });
 
   useCurtains(curtains => {
-    if (!window.scroll.isMobile) {
+    if (!window.scroll.scroll.isMobile) {
       curtains.disableDrawing();
 
       window.scroll.on('scroll', func => {
@@ -177,7 +177,7 @@ const Hero = () => {
               </LabelText>
             </Overflow>
             <Overflow>
-              <BigTitle data-scroll data-scroll-speed={-1} data-scroll-direction="horizontal">
+              <BigTitle data-scroll data-scroll-speed={-2} data-scroll-direction="horizontal">
                 <span ref={el => (lineWords.current[3] = el)}>Loper</span>
               </BigTitle>
             </Overflow>

@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import media from './media';
 
 const mixins = {
   flexCenter: css`
@@ -21,6 +22,17 @@ const mixins = {
     font-weight: 400;
     text-transform: uppercase;
     font-family: var(--font-family-serif);
+  `,
+  midText: css`
+    font-size: 3vw;
+    line-height: 120%;
+    text-transform: uppercase;
+  `,
+  smallText: css`
+    font-size: 1.4vw;
+    line-height: 120%;
+    text-transform: uppercase;
+    ${media.thone`font-size: 16px;`};
   `,
   animLink: css`
     position: relative;

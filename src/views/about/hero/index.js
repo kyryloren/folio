@@ -1,26 +1,29 @@
-import React, { useState, useRef } from 'react';
-import { ShaderPass, FXAAPass, useCurtainsEvent, useCurtains } from 'react-curtains';
+import React, { useRef, useState } from 'react';
+import { GatsbyImage } from 'gatsby-plugin-image';
+import { useCurtainsEvent, useCurtains, ShaderPass, FXAAPass } from 'react-curtains';
 import { firstPassFs, secondPassFs } from '@components/SinglePlane/shaders/post';
 import SinglePlane from '@components/SinglePlane';
+import HeroImage from '@images/hero.png';
 
 import {
-  ProjectsSection,
-  ProjectWrapper,
+  HeroWrapper,
+  RowWrapper,
+  BigTitle,
+  Row,
+  LabelWrapper,
+  LabelText,
   ImageWrapper,
-  ContentWrapper,
-  ContentContainer,
-  Title,
-  TitleWrapper,
-  ParaText,
-  FlexEnd,
-  ParaWrapper,
 } from './style';
-import { Container, Link } from '@styles';
+import { Container } from '@styles';
 
-const Projects = ({ data }) => {
+const Hero = ({ data }) => {
   const planesDeformations = useRef(0);
   const [planes, setPlanes] = useState([]);
   let scrollEffect = 0;
+
+  if (typeof window !== 'undefined') {
+    console.log(window.scroll.scroll.isMobile);
+  }
 
   useCurtainsEvent(
     'onRender',
@@ -120,52 +123,41 @@ const Projects = ({ data }) => {
   };
 
   return (
-    <ProjectsSection>
+    <HeroWrapper>
       <Container>
-        {data.map((node, i) => (
-          <ProjectWrapper key={i} to={`/${node.slug}`}>
-            <div>
-              <ImageWrapper>
-                <SinglePlane
-                  onPlaneReady={onPlaneReady}
-                  image={node.hero.url}
-                  alt={node.hero.alt}
-                />
+        <RowWrapper>
+          <BigTitle data-scroll data-scroll-speed={3} data-scroll-direction="horizontal">
+            About me
+          </BigTitle>
+        </RowWrapper>
+        <Row>
+          <ImageWrapper>
+            <SinglePlane onPlaneReady={onPlaneReady} image={HeroImage} alt="NYC" />
 
-                <ShaderPass
-                  fragmentShader={firstPassFs}
-                  uniforms={firstPassUniforms}
-                  onReady={onFirstPassReady}
-                  onRender={onFirstPassRender}
-                />
+            <ShaderPass
+              fragmentShader={firstPassFs}
+              uniforms={firstPassUniforms}
+              onReady={onFirstPassReady}
+              onRender={onFirstPassRender}
+            />
 
-                <ShaderPass
-                  fragmentShader={secondPassFs}
-                  uniforms={secondPassUniforms}
-                  onRender={onSecondPassRender}
-                />
+            <ShaderPass
+              fragmentShader={secondPassFs}
+              uniforms={secondPassUniforms}
+              onRender={onSecondPassRender}
+            />
 
-                <FXAAPass />
-              </ImageWrapper>
-            </div>
-            <ContentWrapper>
-              <ContentContainer>
-                <TitleWrapper>
-                  <Title>{node.title}</Title>
-                </TitleWrapper>
-                <FlexEnd>
-                  <ParaWrapper>
-                    <ParaText>{node.description}</ParaText>
-                    <Link to={`/${node.slug}`}>Preview project</Link>
-                  </ParaWrapper>
-                </FlexEnd>
-              </ContentContainer>
-            </ContentWrapper>
-          </ProjectWrapper>
-        ))}
+            <FXAAPass />
+          </ImageWrapper>
+          <LabelWrapper>
+            <LabelText>
+              "Wow, he looks young! Wait, how old is he? Why did he use this photo it looks awful?"
+            </LabelText>
+          </LabelWrapper>
+        </Row>
       </Container>
-    </ProjectsSection>
+    </HeroWrapper>
   );
 };
 
-export default Projects;
+export default Hero;

@@ -51,7 +51,6 @@ const Layout = ({ children, location }) => {
             <AnimatePresence>
               <Nav />
               <Curtains
-                watchScroll={typeof window !== 'undefined' ? window.scroll.isMobile : false}
                 pixelRatio={
                   typeof window !== 'undefined' && Math.min(1.5, window.devicePixelRatio)
                 }>

@@ -14,7 +14,7 @@ export const ContentContainer = styled.div`
   max-width: 75%;
 `;
 export const ParaWrapper = styled.div`
-  font-size: 1.8vw;
+  ${mixins.smallText};
   max-width: 80%;
 `;
 export const TitleWrapper = styled.div`
