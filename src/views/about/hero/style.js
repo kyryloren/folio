@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { mixins } from '@styles';
+import { mixins, media } from '@styles';
 
 export const HeroWrapper = styled.section`
   width: 100%;
@@ -14,21 +14,37 @@ export const HeroWrapper = styled.section`
 export const RowWrapper = styled.div`
   transform: rotate(10deg);
   margin: 0;
+
+  ${media.thone`transform: rotate(0deg);`};
 `;
 export const BigTitle = styled.h1`
   font-size: 28vw;
   white-space: nowrap;
 
   ${mixins.largeTitle};
+  ${media.thone`
+    font-size: 20vw;
+    text-align: center;
+  `};
 `;
 export const Row = styled.div`
   display: flex;
   align-items: center;
   margin-top: -10vw;
+
+  ${media.thone`
+    flex-direction: column;
+    margin-top: 5vw;
+  `};
 `;
 export const LabelWrapper = styled.div`
   max-width: 23%;
   margin-left: 5vw;
+
+  ${media.thone`
+    max-width: 100%;
+    margin-top: 20vw;
+  `};
 `;
 export const LabelText = styled.p`
   ${mixins.smallText};
@@ -45,4 +61,9 @@ export const ImageWrapper = styled.div`
     height: 100%;
     object-fit: cover;
   }
+
+  ${media.thone`
+    width: 70%;
+    transform: rotate(2deg);
+  `};
 `;

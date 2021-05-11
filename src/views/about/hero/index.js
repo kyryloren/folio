@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import { useCurtainsEvent, useCurtains, ShaderPass, FXAAPass } from 'react-curtains';
 import { firstPassFs, secondPassFs } from '@components/SinglePlane/shaders/post';
@@ -18,12 +18,19 @@ import { Container } from '@styles';
 
 const Hero = ({ data }) => {
   const planesDeformations = useRef(0);
+  const [mobileImage, setMobileImage] = useState(true);
   const [planes, setPlanes] = useState([]);
   let scrollEffect = 0;
 
-  if (typeof window !== 'undefined') {
-    console.log(window.scroll.scroll.isMobile);
-  }
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.scroll.scroll) {
+      if (window.scroll.scroll.isMobile) {
+        setMobileImage(true);
+      } else {
+        setMobileImage(false);
+      }
+    }
+  }, [mobileImage]);
 
   useCurtainsEvent(
     'onRender',
@@ -132,22 +139,28 @@ const Hero = ({ data }) => {
         </RowWrapper>
         <Row>
           <ImageWrapper>
-            <SinglePlane onPlaneReady={onPlaneReady} image={HeroImage} alt="NYC" />
+            {mobileImage ? (
+              <GatsbyImage image={data.hero.childImageSharp.gatsbyImageData} />
+            ) : (
+              <>
+                <SinglePlane onPlaneReady={onPlaneReady} image={HeroImage} alt="NYC" />
 
-            <ShaderPass
-              fragmentShader={firstPassFs}
-              uniforms={firstPassUniforms}
-              onReady={onFirstPassReady}
-              onRender={onFirstPassRender}
-            />
+                <ShaderPass
+                  fragmentShader={firstPassFs}
+                  uniforms={firstPassUniforms}
+                  onReady={onFirstPassReady}
+                  onRender={onFirstPassRender}
+                />
 
-            <ShaderPass
-              fragmentShader={secondPassFs}
-              uniforms={secondPassUniforms}
-              onRender={onSecondPassRender}
-            />
+                <ShaderPass
+                  fragmentShader={secondPassFs}
+                  uniforms={secondPassUniforms}
+                  onRender={onSecondPassRender}
+                />
 
-            <FXAAPass />
+                <FXAAPass />
+              </>
+            )}
           </ImageWrapper>
           <LabelWrapper>
             <LabelText>

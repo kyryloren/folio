@@ -27,6 +27,7 @@ const mixins = {
     font-size: 3vw;
     line-height: 120%;
     text-transform: uppercase;
+    ${media.thone`font-size: 24px;`};
   `,
   smallText: css`
     font-size: 1.4vw;

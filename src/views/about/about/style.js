@@ -8,9 +8,13 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: -15vw;
+
+  ${media.thone`margin-top: 0;`};
 `;
 export const TextWrapper = styled.div`
   max-width: 55%;
+
+  ${media.thone`max-width: 100%;`};
 `;
 export const Text = styled.p`
   ${mixins.midText};
