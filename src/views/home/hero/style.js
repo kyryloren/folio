@@ -26,7 +26,9 @@ export const BigTitle = styled.h1`
   ${mixins.largeTitle};
 `;
 export const FlexBetween = styled.div`
-  ${mixins.flexBetween};
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 `;
 export const LabelText = styled.p`
   ${mixins.smallText};

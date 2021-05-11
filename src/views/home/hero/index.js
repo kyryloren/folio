@@ -177,22 +177,20 @@ const Hero = ({ data }) => {
         </Overflow>
       </RowWrapper>
       <RowWrapper>
-        <Container>
-          <FlexBetween>
-            <Overflow>
-              <LabelText ref={el => (opacityAnim.current[1] = el)}>
-                Working world
-                <br />
-                wide babyyyy
-              </LabelText>
-            </Overflow>
-            <Overflow>
-              <BigTitle data-scroll data-scroll-speed={-2} data-scroll-direction="horizontal" loper>
-                <span ref={el => (lineWords.current[3] = el)}>Loper</span>
-              </BigTitle>
-            </Overflow>
-          </FlexBetween>
-        </Container>
+        <FlexBetween>
+          <Overflow>
+            <LabelText ref={el => (opacityAnim.current[1] = el)}>
+              Working world
+              <br />
+              wide babyyyy
+            </LabelText>
+          </Overflow>
+          <Overflow>
+            <BigTitle data-scroll data-scroll-speed={-2} data-scroll-direction="horizontal" loper>
+              <span ref={el => (lineWords.current[3] = el)}>Loper</span>
+            </BigTitle>
+          </Overflow>
+        </FlexBetween>
       </RowWrapper>
       <div style={{ zIndex: 2 }}>
         <Overflow>
