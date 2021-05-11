@@ -1,13 +1,16 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
+import { SmoothScroll } from '@components';
 import { Hero, Projects } from '@views/home';
 
-const HomePage = ({ data }) => {
+const HomePage = ({ data, location }) => {
   const doc = data.allDatoCmsProject.nodes;
 
   return (
     <>
+      <SmoothScroll callbacks={location} />
+      
       <Hero data={data} />
       <Projects data={doc} />
     </>

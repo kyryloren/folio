@@ -136,7 +136,7 @@ const Projects = ({ data }) => {
       <Container>
         {data.map((node, i) => (
           <ProjectWrapper key={i} to={`/${node.slug}`}>
-            <div>
+            <div style={{ zIndex: 1 }}>
               <ImageWrapper>
                 {mobileView ? (
                   <GatsbyImage image={node.hero.gatsbyImageData} alt={node.hero.alt} />

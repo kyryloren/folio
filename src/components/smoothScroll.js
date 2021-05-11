@@ -20,7 +20,7 @@ const Scroll = callbacks => {
       el: document.querySelector(scroll.container),
       ...scroll.options,
     });
-    locomotiveScroll.update();
+    locomotiveScroll.update()
 
     // Exposing to the global scope for ease of use.
     window.scroll = locomotiveScroll;

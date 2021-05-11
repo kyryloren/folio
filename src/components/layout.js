@@ -43,19 +43,18 @@ const Layout = ({ children, location }) => {
       render={site => (
         <>
           <Head metadata={site.site.siteMetadata} />
-          <SmoothScroll callbacks={location} />
           {/* <Cursor /> */}
 
           <ThemeProvider>
             <GlobalStyle />
-            <AnimatePresence>
-              <Nav />
+            <AnimatePresence exitBeforeEnter>
               <motion.main
                 key={location.pathname}
                 variants={variants}
                 initial="initial"
                 animate="enter"
                 exit="exit">
+                <Nav />
                 <Curtains
                   pixelRatio={
                     typeof window !== 'undefined' && Math.min(1.5, window.devicePixelRatio)
