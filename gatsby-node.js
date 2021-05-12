@@ -1,5 +1,85 @@
 const path = require('path');
 
+exports.createPages = async ({ graphql, actions }) => {
+  const { createPage } = actions;
+
+  const pages = await graphql(`
+    {
+      allDatoCmsProject(sort: { fields: meta___firstPublishedAt, order: DESC }) {
+        nodes {
+          id
+          slug
+          seo {
+            title
+          }
+          title
+          cover {
+            gatsbyImageData(layout: FULL_WIDTH)
+            alt
+          }
+          about
+          services
+          preview
+          link
+          challenge
+          approach
+          showResult
+          result
+          gallery {
+            gatsbyImageData(layout: FULL_WIDTH)
+            url
+          }
+        }
+      }
+    }
+  `);
+
+  const allPages = await graphql(`
+    {
+      allDatoCmsProject(sort: { fields: meta___firstPublishedAt, order: DESC }) {
+        edges {
+          node {
+            id
+            slug
+            title
+          }
+        }
+      }
+    }
+  `);
+
+  pages.data.allDatoCmsProject.nodes.forEach(node => {
+    function getPagination(projects, currentProject) {
+      let elements = [];
+
+      projects.forEach((project, index) => {
+        const isThisPage = project.node.slug === currentProject.slug;
+
+        if (isThisPage) {
+          const next = index + 1 === projects.length ? projects[0].node : projects[index + 1].node;
+          const previous =
+            index === 0 ? projects[projects.length - 1].node : projects[index - 1].node;
+
+          elements.push({ next, previous });
+        }
+      });
+
+      return elements;
+    }
+
+    let paginationObject = getPagination(allPages.data.allDatoCmsProject.edges, node);
+
+    createPage({
+      path: `/${node.slug}`,
+      component: path.resolve(__dirname, 'src/templates/project.js'),
+      context: {
+        project: node,
+        pagination: paginationObject,
+      },
+    });
+  });
+};
+
 // https://www.gatsbyjs.org/docs/node-apis/#onCreateWebpackConfig
 exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
   actions.setWebpackConfig({
