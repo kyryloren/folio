@@ -54,7 +54,7 @@ const Hero = ({ data }) => {
 
       // update our planes deformation
       // increase/decrease the effect
-      planesDeformations.current = curtains.lerp(planesDeformations.current, 0, 0.075);
+      planesDeformations.current = curtains.lerp(planesDeformations.current, 0, 0.5);
 
       // update planes deformations
       planes.forEach(plane => {
