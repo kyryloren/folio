@@ -47,26 +47,28 @@ const Layout = ({ children, location }) => {
           <ThemeProvider>
             <GlobalStyle />
             <CursorProvider>
-              <Cursor location={location} loading={loading} />
               {loading ? (
                 <Loader setIsLoading={setIsLoading} />
               ) : (
-                <AnimatePresence exitBeforeEnter>
-                  <motion.main
-                    key={location.pathname}
-                    variants={variants}
-                    initial="initial"
-                    animate="enter"
-                    exit="exit">
-                    <Nav />
-                    <Curtains pixelRatio={2}>
-                      <div id="page_container">
-                        {children}
-                        <Footer />
-                      </div>
-                    </Curtains>
-                  </motion.main>
-                </AnimatePresence>
+                <>
+                  <Cursor location={location} loading={loading} />
+                  <AnimatePresence exitBeforeEnter>
+                    <motion.main
+                      key={location.pathname}
+                      variants={variants}
+                      initial="initial"
+                      animate="enter"
+                      exit="exit">
+                      <Nav />
+                      <Curtains pixelRatio={2}>
+                        <div id="page_container">
+                          {children}
+                          <Footer />
+                        </div>
+                      </Curtains>
+                    </motion.main>
+                  </AnimatePresence>
+                </>
               )}
             </CursorProvider>
           </ThemeProvider>
