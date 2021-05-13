@@ -39,6 +39,7 @@ export const AboutText = styled.p`
 `;
 export const ProjectCaption = styled.p`
   ${mixins.smallText};
+  font-size: 1vw;
 
   ul {
     padding: 0;
@@ -60,11 +61,21 @@ export const ApproachCol = styled.div`
 `;
 export const InformationText = styled.p`
   ${mixins.smallText};
+  text-transform: none;
+
+  p {
+    ${mixins.smallText};
+    text-transform: none;
+  }
+
   ${media.desktop`font-size: 1.6vw;`};
   ${media.tablet`font-size: 18px;`};
 `;
 export const BiggerText = styled.p`
-  ${mixins.midText};
+  font-size: 1.7vw;
+  line-height: 120%;
+  margin: 0;
+
   ${media.desktop`font-size: 1.6vw;`};
   ${media.tablet`font-size: 18px;`};
 `;

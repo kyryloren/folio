@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import { SmoothScroll } from '@components';
+import { SmoothScroll, Contact } from '@components';
 import { Hero, Projects } from '@views/home';
 
 const HomePage = ({ data, location }) => {
@@ -10,9 +10,10 @@ const HomePage = ({ data, location }) => {
   return (
     <>
       <SmoothScroll callbacks={location} />
-      
+
       <Hero data={data} />
       <Projects data={doc} />
+      <Contact />
     </>
   );
 };

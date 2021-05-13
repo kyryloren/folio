@@ -48,6 +48,9 @@ export const Row = styled.div`
 export const Award = styled.div`
   ${mixins.flexBetween};
   border-top: 2px solid var(--text);
-  border-bottom: 2px solid var(--text);
   padding: 2vw 0;
+
+  :not(:first-child) {
+    border-bottom: 2px solid var(--text);
+  }
 `;

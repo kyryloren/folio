@@ -40,7 +40,11 @@ const About = () => {
           <div>
             <Award>
               <SmallText>Awwwards</SmallText>
-              <SmallText>1x honors</SmallText>
+              <SmallText>1x Honors</SmallText>
+            </Award>
+            <Award>
+              <SmallText>Awwwards</SmallText>
+              <SmallText>1x Mobile Honors</SmallText>
             </Award>
             <SmallText mt style={{ textAlign: 'right' }}>
               More coming soon ;)

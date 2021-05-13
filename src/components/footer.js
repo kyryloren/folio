@@ -27,6 +27,9 @@ const Footer = () => {
         <small>
           <StyledText>&copy; {y}</StyledText>
         </small>
+        <small>
+          <StyledText>40.7128°N, 74.0060°W</StyledText>
+        </small>
       </StyledFooter>
     </FixedWrapper>
   );

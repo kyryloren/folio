@@ -2,7 +2,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { SmoothScroll } from '@components';
 
-import { Hero, About } from '@views/project';
+import { Container } from '@styles';
+import { Line } from '@views/project/style';
+import { Hero, About, Gallery, Pagination } from '@views/project';
 
 const ProjectPage = ({ pageContext, location }) => {
   const { pagination, project } = pageContext;
@@ -14,6 +16,11 @@ const ProjectPage = ({ pageContext, location }) => {
 
       <Hero data={project} />
       <About data={project} />
+      <Gallery data={project} />
+      <Container>
+        <Line />
+      </Container>
+      <Pagination data={pagination[0]} />
     </>
   );
 };
