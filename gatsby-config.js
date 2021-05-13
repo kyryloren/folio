@@ -2,7 +2,7 @@ require('dotenv').config();
 
 module.exports = {
   siteMetadata: {
-    title: `Kyrylo Orlov | Independent designer & developer`,
+    title: `Kyrylo Orlov - Independent designer & developer`,
     description: `I am a passionate UI/UX designer and developer. I have a drive for building high quality user experiences, and working as a leader to deliver the best results.`,
     siteUrl: 'https://kyryloorlov.com',
     image: '/og.png',

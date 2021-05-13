@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Curtains } from 'react-curtains';
-import { Head, ThemeProvider, Nav, Footer, Cursor, CursorProvider } from '@components';
+import { Head, ThemeProvider, Nav, Footer, Cursor, CursorProvider, Loader } from '@components';
 import { GlobalStyle } from '@styles';
 
 const variants = {
@@ -25,7 +25,7 @@ const variants = {
 };
 
 const Layout = ({ children, location }) => {
-  //   const [loading, setIsLoading] = useState(true);
+  const [loading, setIsLoading] = useState(true);
 
   return (
     <StaticQuery
@@ -47,23 +47,27 @@ const Layout = ({ children, location }) => {
           <ThemeProvider>
             <GlobalStyle />
             <CursorProvider>
-              <AnimatePresence exitBeforeEnter>
-                <motion.main
-                  key={location.pathname}
-                  variants={variants}
-                  initial="initial"
-                  animate="enter"
-                  exit="exit">
-                  <Nav />
-                  <Curtains pixelRatio={1.5}>
-                    <Cursor location={location} />
-                    <div id="page_container">
-                      {children}
-                      <Footer />
-                    </div>
-                  </Curtains>
-                </motion.main>
-              </AnimatePresence>
+              <Cursor location={location} loading={loading} />
+              {loading ? (
+                <Loader setIsLoading={setIsLoading} />
+              ) : (
+                <AnimatePresence exitBeforeEnter>
+                  <motion.main
+                    key={location.pathname}
+                    variants={variants}
+                    initial="initial"
+                    animate="enter"
+                    exit="exit">
+                    <Nav />
+                    <Curtains pixelRatio={2}>
+                      <div id="page_container">
+                        {children}
+                        <Footer />
+                      </div>
+                    </Curtains>
+                  </motion.main>
+                </AnimatePresence>
+              )}
             </CursorProvider>
           </ThemeProvider>
         </>

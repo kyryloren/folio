@@ -47,7 +47,7 @@ const StyledCursor = styled.div`
   `};
 `;
 
-const Cursor = ({ location, loaded }) => {
+const Cursor = ({ location, loading }) => {
   const { image } = useContext(CursorContext);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [clicked, setClicked] = useState(false);
@@ -62,7 +62,7 @@ const Cursor = ({ location, loaded }) => {
       handleLinkHoverEvents();
       return () => removeEventListeners();
     }, 1000);
-  }, [location.pathname, loaded]);
+  }, [location.pathname, loading]);
 
   const addEventListeners = () => {
     document.addEventListener('mousemove', onMouseMove);

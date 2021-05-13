@@ -19,7 +19,8 @@
       "@pages": ["src/pages"],
       "@styles": ["src/styles"],
       "@views": ["src/views"],
-      "@fonts": ["src/fonts"]
+      "@fonts": ["src/fonts"],
+      "@hooks": ["src/hooks"]
     }
   },
   "exclude": ["node_modules"],
