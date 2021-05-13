@@ -58,12 +58,13 @@ export const ImageWrapper = styled.div`
 `;
 export const ProjectWrapper = styled(Link)`
   ${mixins.flexBetween};
-  padding: 10vw 10vw;
+  padding: 0 10vw;
+  margin: 15vw 0;
   color: inherit;
   text-decoration: none;
   ${media.phablet`
     flex-direction: column;
-    padding: 10vw 5vw;
+    padding: 0 5vw;
   `};
 
   :nth-child(2n) {

@@ -55,10 +55,7 @@ const Layout = ({ children, location }) => {
                   animate="enter"
                   exit="exit">
                   <Nav />
-                  <Curtains
-                    pixelRatio={
-                      typeof window !== 'undefined' && Math.min(1.5, window.devicePixelRatio)
-                    }>
+                  <Curtains pixelRatio={1.5}>
                     <Cursor location={location} />
                     <div id="page_container">
                       {children}

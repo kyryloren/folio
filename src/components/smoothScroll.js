@@ -57,7 +57,7 @@ const Scroll = ({ callbacks, delay = false }) => {
         if (locomotiveScroll) locomotiveScroll.destroy();
       };
     }
-  }, [callbacks]);
+  }, [callbacks, delay]);
 
   return null;
 };
