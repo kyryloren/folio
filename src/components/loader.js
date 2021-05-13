@@ -10,12 +10,10 @@ const LoaderWrapper = styled.div`
   left: 0;
   width: 100vw;
   height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   z-index: 9998;
   background-color: var(--text);
   color: var(--background);
+  ${mixins.flexCenter};
 `;
 const Text = styled.p`
   ${mixins.smallText};
