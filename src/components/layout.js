@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Curtains } from 'react-curtains';
-import { Head, ThemeProvider, Nav, Footer, Cursor } from '@components';
+import { Head, ThemeProvider, Nav, Footer, Cursor, CursorProvider } from '@components';
 import { GlobalStyle } from '@styles';
 
 const variants = {
@@ -46,26 +46,28 @@ const Layout = ({ children, location }) => {
 
           <ThemeProvider>
             <GlobalStyle />
-            <Cursor location={location} />
-            <AnimatePresence exitBeforeEnter>
-              <motion.main
-                key={location.pathname}
-                variants={variants}
-                initial="initial"
-                animate="enter"
-                exit="exit">
-                <Nav />
-                <Curtains
-                  pixelRatio={
-                    typeof window !== 'undefined' && Math.min(1.5, window.devicePixelRatio)
-                  }>
-                  <div id="page_container">
-                    {children}
-                    <Footer />
-                  </div>
-                </Curtains>
-              </motion.main>
-            </AnimatePresence>
+            <CursorProvider>
+              <AnimatePresence exitBeforeEnter>
+                <motion.main
+                  key={location.pathname}
+                  variants={variants}
+                  initial="initial"
+                  animate="enter"
+                  exit="exit">
+                  <Nav />
+                  <Curtains
+                    pixelRatio={
+                      typeof window !== 'undefined' && Math.min(1.5, window.devicePixelRatio)
+                    }>
+                    <Cursor location={location} />
+                    <div id="page_container">
+                      {children}
+                      <Footer />
+                    </div>
+                  </Curtains>
+                </motion.main>
+              </AnimatePresence>
+            </CursorProvider>
           </ThemeProvider>
         </>
       )}

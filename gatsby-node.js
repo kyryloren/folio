@@ -42,6 +42,10 @@ exports.createPages = async ({ graphql, actions }) => {
             id
             slug
             title
+            cover {
+              url
+              alt
+            }
           }
         }
       }

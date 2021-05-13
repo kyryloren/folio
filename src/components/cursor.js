@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-// import { CursorContext } from './CursorContext';
+import React, { useState, useEffect, useContext } from 'react';
+import { CursorContext } from './CursorContext';
 import styled from 'styled-components';
 
 const isMobile = () => {
@@ -48,7 +48,7 @@ const StyledCursor = styled.div`
 `;
 
 const Cursor = ({ location, loaded }) => {
-  //   const { image } = React.useContext(CursorContext);
+  const { image } = useContext(CursorContext);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [clicked, setClicked] = useState(false);
   const [linkHovered, setLinkHovered] = useState(false);
@@ -121,7 +121,7 @@ const Cursor = ({ location, loaded }) => {
         linkHovered={linkHovered}
         style={{ top: `${position.y}px`, left: `${position.x}px` }}
       />
-      {/* <StyledImage
+      <StyledImage
         src={image && image.url}
         alt={image && image.alt}
         style={{
@@ -129,7 +129,7 @@ const Cursor = ({ location, loaded }) => {
           left: `${position.x}px`,
           opacity: image && image.hovering ? 1 : 0,
         }}
-      /> */}
+      />
     </>
   );
 };

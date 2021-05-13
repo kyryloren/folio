@@ -4,7 +4,7 @@ import { Plane } from 'react-curtains';
 import { vertexShader, fragmentShader } from './shaders/image';
 import './index.css';
 
-function SinglePlane({ image, alt, onPlaneReady = () => {} }) {
+function SinglePlane({ image, alt, onPlaneReady = () => {}, vs, fs, uni }) {
   const uniforms = {
     planeDeformation: {
       name: 'uPlaneDeformation',
@@ -16,12 +16,12 @@ function SinglePlane({ image, alt, onPlaneReady = () => {} }) {
   return (
     <Plane
       className="MultiplePlanes-plane"
-      vertexShader={vertexShader}
-      fragmentShader={fragmentShader}
+      vertexShader={vs ? vs : vertexShader}
+      fragmentShader={fs ? fs : fragmentShader}
       shareProgram={true}
       widthSegments={10}
       heightSegments={10}
-      uniforms={uniforms}
+      uniforms={uni ? uni : uniforms}
       onReady={onPlaneReady}>
       <img src={image} data-sampler="planeTexture" alt={alt} />
     </Plane>
