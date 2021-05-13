@@ -101,34 +101,6 @@ const GlobalStyle = createGlobalStyle`
     z-index: 1;
     pointer-events: none;
   }
-  /* .cursor {
-    width: 60px;
-    height: 60px;
-    border: 2px solid var(--text);
-    border-radius: 100%;
-    position: fixed;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: all 150ms ease;
-    transition-property: background-color, opacity, transform, mix-blend-mode, width, height;
-    z-index: 9999;
-    mix-blend-mode: difference;
-  }
-  .cursor--hidden {
-    opacity: 0;
-  }
-  .cursor--link-hovered {
-    transform: translate(-50%, -50%) scale(1.25);
-    background-color: var(--text);
-    width: 80px;
-    height: 80px;
-  }
-  .cursor--clicked {
-    transform: translate(-50%, -50%) scale(0.9);
-    background-color: var(--text);
-    width: 50px;
-    height: 50px;
-  } */
 `;
 
 export default GlobalStyle;

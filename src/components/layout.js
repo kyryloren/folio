@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { StaticQuery, graphql } from 'gatsby';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Curtains } from 'react-curtains';
-import { Head, ThemeProvider, Nav, Footer } from '@components';
+import { Head, ThemeProvider, Nav, Footer, Cursor } from '@components';
 import { GlobalStyle } from '@styles';
 
 const variants = {
@@ -43,10 +43,10 @@ const Layout = ({ children, location }) => {
       render={site => (
         <>
           <Head metadata={site.site.siteMetadata} />
-          {/* <Cursor /> */}
 
           <ThemeProvider>
             <GlobalStyle />
+            <Cursor location={location} />
             <AnimatePresence exitBeforeEnter>
               <motion.main
                 key={location.pathname}

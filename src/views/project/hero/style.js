@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { GatsbyImage } from 'gatsby-plugin-image';
-import { media, mixins } from '@styles';
+import { mixins } from '@styles';
 
 export const HeroSection = styled.section`
   position: relative;
