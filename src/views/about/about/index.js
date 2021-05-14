@@ -44,7 +44,7 @@ const About = () => {
             </Award>
             <Award>
               <SmallText>Awwwards</SmallText>
-              <SmallText>1x Mobile Honors</SmallText>
+              <SmallText>1x Mobile Excellence</SmallText>
             </Award>
             <SmallText mt style={{ textAlign: 'right' }}>
               More coming soon ;)

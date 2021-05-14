@@ -44,7 +44,7 @@ const Loader = ({ setIsLoading }) => {
         },
       );
     }
-  }, [percent, tl, sectionContainer, textRef]);
+  }, [percent, tl, sectionContainer, textRef, setIsLoading]);
 
   useRandomInterval(() => percent < 100 && setPercent(percent => percent + 1), ...minMax);
 

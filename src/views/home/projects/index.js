@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { GatsbyImage } from 'gatsby-plugin-image';
-import { ShaderPass, FXAAPass, useCurtainsEvent, useCurtains } from 'react-curtains';
+import { ShaderPass, FXAAPass } from 'react-curtains';
 import { firstPassFs, secondPassFs } from '@components/SinglePlane/shaders/post';
 import SinglePlane from '@components/SinglePlane';
 
@@ -20,8 +20,6 @@ import { Link } from '@styles';
 const Projects = ({ data }) => {
   const planesDeformations = useRef(0);
   const [mobileView, setMobileView] = useState(true);
-  const [planes, setPlanes] = useState([]);
-  let scrollEffect = 0;
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.scroll.scroll) {
@@ -32,64 +30,6 @@ const Projects = ({ data }) => {
       }
     }
   }, [setMobileView]);
-
-  useCurtainsEvent(
-    'onRender',
-    curtains => {
-      if (window.scroll.scroll.isMobile) {
-        scrollEffect = curtains.lerp(scrollEffect, 0, 0.05);
-      }
-
-      // update our planes deformation
-      // increase/decrease the effect
-      planesDeformations.current = curtains.lerp(planesDeformations.current, 0, 0.5);
-
-      // update planes deformations
-      planes.forEach(plane => {
-        plane.uniforms.planeDeformation.value = planesDeformations.current;
-      });
-    },
-    [planes],
-  );
-
-  useCurtainsEvent('onScroll', curtains => {
-    // get scroll deltas to apply the effect on scroll
-    const delta = curtains.getScrollDeltas();
-
-    // invert value for the effect
-    delta.y = -delta.y;
-
-    // threshold
-    if (delta.y > 60) {
-      delta.y = 60;
-    } else if (delta.y < -60) {
-      delta.y = -60;
-    }
-
-    if (Math.abs(delta.y) > Math.abs(planesDeformations.current)) {
-      planesDeformations.current = curtains.lerp(planesDeformations.current, delta.y, 0.5);
-    }
-  });
-
-  useCurtainsEvent('onContextLost', curtains => {
-    curtains.restoreContext();
-  });
-
-  useCurtains(curtains => {
-    if (!window.scroll.scroll.isMobile) {
-      curtains.disableDrawing();
-
-      window.scroll.on('scroll', func => {
-        curtains.updateScrollValues(func.scroll.x, func.scroll.y);
-
-        curtains.needRender();
-      });
-    }
-  });
-
-  const onPlaneReady = plane => {
-    setPlanes(planes => [...planes, plane]);
-  };
 
   // post processing
   const firstPassUniforms = {
@@ -141,7 +81,6 @@ const Projects = ({ data }) => {
               ) : (
                 <>
                   <SinglePlane
-                    onPlaneReady={onPlaneReady}
                     image={node.hero.url}
                     alt={node.hero.alt}
                   />
