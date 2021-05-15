@@ -48,10 +48,11 @@ const Layout = ({ children, location }) => {
             <GlobalStyle />
             <CursorProvider>
               {loading ? (
-                <Loader setIsLoading={setIsLoading} />
+                <div>
+                  <Loader setIsLoading={setIsLoading} />
+                </div>
               ) : (
                 <>
-                  <Cursor location={location} loading={loading} />
                   <AnimatePresence exitBeforeEnter>
                     <motion.main
                       key={location.pathname}
@@ -60,7 +61,9 @@ const Layout = ({ children, location }) => {
                       animate="enter"
                       exit="exit">
                       <Nav />
-                      <Curtains pixelRatio={2}>
+                      <Curtains
+                        pixelRatio={Math.min(1.5, window.devicePixelRatio)}
+                        shouldUpdate={false}>
                         <div id="page_container">
                           {children}
                           <Footer />
@@ -70,6 +73,7 @@ const Layout = ({ children, location }) => {
                   </AnimatePresence>
                 </>
               )}
+              <Cursor location={location} loading={loading} />
             </CursorProvider>
           </ThemeProvider>
         </>

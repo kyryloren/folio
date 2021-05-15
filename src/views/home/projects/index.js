@@ -18,6 +18,7 @@ import {
 import { Link } from '@styles';
 
 const Projects = ({ data }) => {
+  console.log(data);
   const planesDeformations = useRef(0);
   const [mobileView, setMobileView] = useState(true);
 
@@ -80,10 +81,7 @@ const Projects = ({ data }) => {
                 <GatsbyImage image={node.hero.gatsbyImageData} alt={node.hero.alt} />
               ) : (
                 <>
-                  <SinglePlane
-                    image={node.hero.url}
-                    alt={node.hero.alt}
-                  />
+                  <SinglePlane image={node.hero.url} alt={node.hero.alt} />
 
                   <ShaderPass
                     fragmentShader={firstPassFs}

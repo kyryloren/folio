@@ -91,10 +91,6 @@ const Hero = ({ data }) => {
     }
   });
 
-  useCurtainsEvent('onContextLost', curtains => {
-    curtains.restoreContext();
-  });
-
   useCurtains(curtains => {
     if (!window.scroll.scroll.isMobile) {
       curtains.disableDrawing();

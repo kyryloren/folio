@@ -56,12 +56,13 @@ const Cursor = ({ location, loading }) => {
 
   useEffect(() => {
     setLinkHovered(false);
+    addEventListeners();
 
     setTimeout(() => {
-      addEventListeners();
       handleLinkHoverEvents();
-      return () => removeEventListeners();
     }, 1000);
+
+    return () => removeEventListeners();
   }, [location.pathname, loading]);
 
   const addEventListeners = () => {
