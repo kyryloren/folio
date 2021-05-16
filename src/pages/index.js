@@ -22,7 +22,7 @@ export default HomePage;
 
 export const query = graphql`
   {
-    allDatoCmsProject(sort: { fields: meta___firstPublishedAt, order: DESC }) {
+    allDatoCmsProject(sort: { fields: position, order: ASC }) {
       nodes {
         slug
         title

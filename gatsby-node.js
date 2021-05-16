@@ -5,7 +5,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const pages = await graphql(`
     {
-      allDatoCmsProject(sort: { fields: meta___firstPublishedAt, order: DESC }) {
+      allDatoCmsProject(sort: { fields: position, order: ASC }) {
         nodes {
           id
           slug
@@ -36,7 +36,7 @@ exports.createPages = async ({ graphql, actions }) => {
 
   const allPages = await graphql(`
     {
-      allDatoCmsProject(sort: { fields: meta___firstPublishedAt, order: DESC }) {
+      allDatoCmsProject(sort: { fields: position, order: ASC }) {
         edges {
           node {
             id
