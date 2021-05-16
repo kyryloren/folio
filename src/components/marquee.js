@@ -40,7 +40,7 @@ const MarqueeText = styled.p`
   text-transform: uppercase;
   text-decoration: underline;
   line-height: 1;
-  color: var(--accent);
+  color: var(--text);
   margin-right: 0.2rem;
   ${media.tablet`font-size: 14px;`};
 `;
