@@ -18,7 +18,6 @@ import {
 import { Link } from '@styles';
 
 const Projects = ({ data }) => {
-  console.log(data);
   const planesDeformations = useRef(0);
   const [mobileView, setMobileView] = useState(true);
 
